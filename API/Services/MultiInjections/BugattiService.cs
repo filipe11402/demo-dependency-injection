@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using API.Enums;
 
 namespace API.Services.MultiInjections
 {
     public class BugattiService : ICarService
     {
-        public string GetBrand()
+        public string GetBrandInfo()
         {
-            return "Bugatti";
+            return "Creator -> Ettore Bugatti";
+        }
+
+        public CarBrandEnum GetCarBrand()
+        {
+            return CarBrandEnum.Bugatti;
         }
     }
 }

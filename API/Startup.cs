@@ -1,4 +1,5 @@
 using API.Services.LifeCyles;
+using API.Services.MultiInjections;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -26,12 +27,18 @@ namespace API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
             });
 
-            //Life Cycles
+            //LIFE CYLES
             services.AddTransient<LifeCycleService>();
 
             services.AddSingleton<ISingletonService, SingletonService>();
             services.AddTransient<ITransientService, TransientService>();
             services.AddScoped<IScopedService, ScopedService>();
+
+            //MULTI INJECTION
+            services.AddTransient<ICarServiceFactory, CarServiceFactory>();
+            services.AddScoped<ICarService, FerrariService>();
+            services.AddScoped<ICarService, PorscheService>();
+            services.AddScoped<ICarService, BugattiService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

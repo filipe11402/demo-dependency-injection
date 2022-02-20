@@ -1,7 +1,11 @@
-﻿namespace API.Services.MultiInjections
+﻿using API.Enums;
+
+namespace API.Services.MultiInjections
 {
     public interface ICarService
     {
-        string GetBrand();
+        CarBrandEnum GetCarBrand();
+
+        string GetBrandInfo();
     }
 }

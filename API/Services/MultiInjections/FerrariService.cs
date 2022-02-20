@@ -1,10 +1,17 @@
-﻿namespace API.Services.MultiInjections
+﻿using API.Enums;
+
+namespace API.Services.MultiInjections
 {
     public class FerrariService : ICarService
     {
-        public string GetBrand()
+        public string GetBrandInfo()
         {
-            return "Ferrari";
+            return "Creator -> Enzo Ferrari";
+        }
+
+        public CarBrandEnum GetCarBrand()
+        {
+            return CarBrandEnum.Ferrari;
         }
     }
 }
