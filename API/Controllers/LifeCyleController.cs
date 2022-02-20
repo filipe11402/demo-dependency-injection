@@ -14,13 +14,21 @@ namespace API.Controllers
     {
         private readonly ISingletonService _singletonService;
 
-        private readonly LifeCycleService _lifeCycleService;
+        private readonly ITransientService _transientService;
+
+        private readonly LifeCycleService _lifeCycleService1;
+
+        private readonly LifeCycleService _lifeCycleService2;
 
         public LifeCyleController(ISingletonService singletonService,
-                                  LifeCycleService lifeCycleService)
+                                  ITransientService transientService,
+                                  LifeCycleService lifeCycleService1,
+                                  LifeCycleService lifeCycleService2)
         {
             this._singletonService = singletonService;
-            this._lifeCycleService = lifeCycleService;
+            this._transientService = transientService;
+            this._lifeCycleService1 = lifeCycleService1;
+            this._lifeCycleService2 = lifeCycleService2;
         }
 
         [HttpGet]
@@ -30,7 +38,7 @@ namespace API.Controllers
             return StatusCode(StatusCodes.Status200OK,
             new 
             {
-                result = this._singletonService.GetInstantiationCount()
+                result = this._singletonService.GetId()
             });
         }
 
@@ -41,7 +49,20 @@ namespace API.Controllers
             return StatusCode(StatusCodes.Status200OK,
             new
             {
-                result = this._lifeCycleService.GetLifeCyclesServicesInfo()
+                result = $"{this._lifeCycleService1.GetLifeCyclesServicesInfo()}" +
+                         $"{System.Environment.NewLine}" +
+                         $"{this._lifeCycleService2.GetLifeCyclesServicesInfo()}"
+            });
+        }
+
+        [HttpGet]
+        [Route("transient")]
+        public IActionResult GetTransient()
+        {
+            return StatusCode(StatusCodes.Status200OK,
+            new
+            {
+                result = this._transientService.GetId()
             });
         }
     }

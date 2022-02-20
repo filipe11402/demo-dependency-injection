@@ -2,7 +2,7 @@
 
 namespace API.Services.LifeCyles
 {
-    public interface ISingletonService
+    public interface ITransientService
     {
         Guid Id { get; }
 

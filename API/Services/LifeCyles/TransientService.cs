@@ -2,18 +2,15 @@
 
 namespace API.Services.LifeCyles
 {
-    public class SingletonService : ISingletonService
+    public class TransientService : ITransientService
     {
         public Guid Id { get; private set; }
 
-        public SingletonService()
+        public TransientService()
         {
             this.Id = Guid.NewGuid();
         }
 
-        public Guid GetId()
-        {
-            return this.Id;
-        }
+        public Guid GetId() => this.Id;
     }
 }
