@@ -31,6 +31,7 @@ namespace API
 
             services.AddSingleton<ISingletonService, SingletonService>();
             services.AddTransient<ITransientService, TransientService>();
+            services.AddScoped<IScopedService, ScopedService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

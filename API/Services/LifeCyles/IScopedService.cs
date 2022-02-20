@@ -7,8 +7,8 @@ namespace API.Services.LifeCyles
 {
     public interface IScopedService
     {
-        int instantiationCount { get; set; }
+        Guid Id { get; }
 
-        int GetInstantiationCount();
+        Guid GetId();
     }
 }

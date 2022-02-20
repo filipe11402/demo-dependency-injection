@@ -16,17 +16,21 @@ namespace API.Controllers
 
         private readonly ITransientService _transientService;
 
+        private readonly IScopedService _scopedService;
+
         private readonly LifeCycleService _lifeCycleService1;
 
         private readonly LifeCycleService _lifeCycleService2;
 
         public LifeCyleController(ISingletonService singletonService,
                                   ITransientService transientService,
+                                  IScopedService scopedService,
                                   LifeCycleService lifeCycleService1,
                                   LifeCycleService lifeCycleService2)
         {
             this._singletonService = singletonService;
             this._transientService = transientService;
+            this._scopedService = scopedService;
             this._lifeCycleService1 = lifeCycleService1;
             this._lifeCycleService2 = lifeCycleService2;
         }
@@ -36,23 +40,10 @@ namespace API.Controllers
         public IActionResult GetSingleton() 
         {
             return StatusCode(StatusCodes.Status200OK,
-            new 
-            {
-                result = this._singletonService.GetId()
-            });
-        }
-
-        [HttpGet]
-        [Route("all")]
-        public IActionResult GetAllLifeCycles()
-        {
-            return StatusCode(StatusCodes.Status200OK,
-            new
-            {
-                result = $"{this._lifeCycleService1.GetLifeCyclesServicesInfo()}" +
-                         $"{System.Environment.NewLine}" +
-                         $"{this._lifeCycleService2.GetLifeCyclesServicesInfo()}"
-            });
+                new 
+                {
+                    Scoped = this._singletonService.GetId()
+                });
         }
 
         [HttpGet]
@@ -60,10 +51,34 @@ namespace API.Controllers
         public IActionResult GetTransient()
         {
             return StatusCode(StatusCodes.Status200OK,
-            new
-            {
-                result = this._transientService.GetId()
-            });
+                new
+                {
+                    Transient = this._transientService.GetId()
+                });
         }
+
+        [HttpGet]
+        [Route("scoped")]
+        public IActionResult GetScoped() 
+        {
+            return StatusCode(StatusCodes.Status200OK,
+                new 
+                {
+                    Scoped = this._scopedService.GetId()
+                });
+        }
+
+        [HttpGet]
+        [Route("all")]
+        public IActionResult GetAllLifeCycles()
+        {
+            return StatusCode(StatusCodes.Status200OK,
+                new
+                {
+                    FirstService = $"{this._lifeCycleService1.GetLifeCyclesServicesInfo()}",
+                    SecondService = $"{this._lifeCycleService2.GetLifeCyclesServicesInfo()}"
+                });
+        }
+
     }
 }
